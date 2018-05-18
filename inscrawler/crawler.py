@@ -107,6 +107,7 @@ class InsCrawler:
                     content = ele_img.get_attribute('alt')
                     img_url = ele_img.get_attribute('src')
                     dict_posts[key] = {
+                        'key': key,
                         'content': content,
                         'img_url': img_url
                     }

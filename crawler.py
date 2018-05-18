@@ -13,7 +13,7 @@ def fetch_hash_tag():
     print(hash_tag)
     if hash_tag is None:
         return 'Error! The "hash_tag" parameter is required.'
-    photos = json.dumps(get_posts_by_hashtag(hash_tag, 50))
+    photos = json.dumps(get_posts_by_hashtag(hash_tag, 15))
     return photos
 
 
