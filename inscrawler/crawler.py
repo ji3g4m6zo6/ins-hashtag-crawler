@@ -57,6 +57,14 @@ class InsCrawler:
             number = instagram_int(user_profile['post_num'])
         return self._get_posts(number)
 
+    def update_post_content(self, post):
+        url = post['key']
+        self.browser.get(url)
+        post['content'] = self._get_post_content()
+        return post
+
+    def get_content(self):
+        print(self.browser.find_one('C4VMK').text)
 
     def get_latest_posts_by_tag(self, tag, num):
         url = '%s/explore/tags/%s/' % (InsCrawler.URL, tag)
@@ -86,6 +94,10 @@ class InsCrawler:
                 randmized_sleep(2)
             else:
                 break
+
+    def _get_post_content(self):
+        return self.browser.find_by_xpath(
+            xpath='//*[@id="react-root"]/section/main/div/div/article/div[2]/div[1]/ul/li[1]/div/div/div/span').text
 
     def _get_posts(self, num):
         '''
@@ -135,6 +147,8 @@ class InsCrawler:
                 break
 
         posts = list(dict_posts.values())
+        for post in posts[:num]:
+            self.update_post_content(post=post)
         print('Done. Fetched %s posts.' % (min(len(posts), num)))
         return posts[:num]
 

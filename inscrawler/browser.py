@@ -28,6 +28,16 @@ class Browser:
     def get(self, url):
         self.driver.get(url)
 
+    def get_title(self):
+        return self.driver.title
+
+    def get_page_source(self):
+        return self.driver.page_source
+
+    def find_by_xpath(self, xpath):
+        return self.driver.find_element_by_xpath(
+            xpath=xpath)
+
     def find_one(self, css_selector, elem=None):
         obj = elem or self.driver
         try:
