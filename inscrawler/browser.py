@@ -29,7 +29,15 @@ class Browser:
         self.driver.get(url)
 
     def get_title(self):
-        return self.driver.title
+        title = self.driver.title
+        if '：「 ' in title:
+            sp = title.split('：「 ')
+            if len(sp) > 1:
+                return title.split('：「 ')[1]
+            else:
+                return title
+        else:
+            return title
 
     def get_page_source(self):
         return self.driver.page_source

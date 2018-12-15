@@ -61,6 +61,7 @@ class InsCrawler:
         url = post['key']
         self.browser.get(url)
         post['content'] = self._get_post_content()
+        # exit()
         return post
 
     def get_content(self):
@@ -96,8 +97,14 @@ class InsCrawler:
                 break
 
     def _get_post_content(self):
-        return self.browser.find_by_xpath(
-            xpath='//*[@id="react-root"]/section/main/div/div/article/div[2]/div[1]/ul/li[1]/div/div/div/span').text
+        content = ''
+        try:
+            content = self.browser.find_by_xpath(
+                '//*[@id="react-root"]/section/main/div/div/article/div[2]/div[1]/ul/li[1]/div/div/div/div/span').text
+        except Exception as e:
+            print(e)
+            content = self.browser.get_title()
+        return content
 
     def _get_posts(self, num):
         '''
